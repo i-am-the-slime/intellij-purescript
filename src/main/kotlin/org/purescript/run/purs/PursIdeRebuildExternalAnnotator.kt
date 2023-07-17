@@ -81,7 +81,7 @@ class PursIdeRebuildExternalAnnotator : ExternalAnnotator<PsiFile, Response>() {
                 .let { if (it.length <= 0) it.grown(1).shiftLeft(1) else it }
             val annotationBuilder = holder
                 .newAnnotation(severity, "Purs ide rebuild: ${result.errorCode}")
-                .tooltip(result.message)
+                .tooltip(if (result.message.length > 803) "${result.message.take(800)}…" else result.message)
                 .range(textRange)
                 .needsUpdateOnTyping()
             if (result.suggestion != null) {
